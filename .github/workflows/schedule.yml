@@ -27,9 +27,6 @@ jobs:
       - name: Install the project
         run: uv sync --all-extras --dev
 
-      - name: Minimize uv cache
-        run: uv cache prune --ci
-
       - name: Run prediction script
         run: python main.py
 

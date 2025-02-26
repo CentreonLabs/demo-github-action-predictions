@@ -28,7 +28,7 @@ jobs:
         run: uv sync --all-extras --dev
 
       - name: Run prediction script
-        run: python main.py
+        run: uv run python main.py
 
       - name: Commit and push changes
         run: |

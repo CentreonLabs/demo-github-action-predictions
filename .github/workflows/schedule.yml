@@ -28,6 +28,8 @@ jobs:
         run: uv sync --all-extras --dev
 
       - name: Run prediction script
+        env:
+          NIXTLA_API_KEY: ${{ secrets.NIXTLA_API_KEY }}
         run: uv run python main.py
 
       - name: Commit and push changes

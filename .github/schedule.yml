@@ -1,0 +1,42 @@
+name: Update Weather Prediction
+
+on:
+  push:
+  schedule:
+    - cron: "0 */3 * * *" # Runs every 3 hours
+
+jobs:
+  predict-weather:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+          cache-dependency-glob: "uv.lock"
+
+      - name: "Set up Python"
+        uses: actions/setup-python@v5
+        with:
+          python-version-file: ".python-version"
+
+      - name: Install the project
+        run: uv sync --all-extras --dev
+
+      - name: Minimize uv cache
+        run: uv cache prune --ci
+
+      - name: Run prediction script
+        run: python main.py
+
+      - name: Commit and push changes
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions@github.com"
+          git add plot.png
+          git commit -m "🔄 Updated forecast graph" || echo "No changes to commit"
+          git push

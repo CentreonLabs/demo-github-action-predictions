@@ -1,8 +1,9 @@
-name: Update Weather Prediction
+name: Update Prediction
 
 on:
   schedule:
     - cron: "0 0 * * *" # Runs once every day
+  workflow_dispatch:
 
 jobs:
   predict-weather:

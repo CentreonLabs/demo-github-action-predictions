@@ -1,7 +1,6 @@
 name: Update Weather Prediction
 
 on:
-  push:
   schedule:
     - cron: "0 0 * * *" # Runs once every day
 
